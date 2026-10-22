@@ -18,6 +18,18 @@ Look at https://github.com/agentschools/course-spec and help me get started.
 
 Your agent will ask about the topic and audience, propose an outline, then write the course with you.
 
+To install the `create-course` skill in your agent instead, run:
+
+```sh
+npx skills add agentschools/course-spec
+```
+
+Then ask your agent to help you write a course.
+
+## Who uses it
+
+[Cloudflare Dev School](https://cfdev.school) uses this format for its built-in courses ([source](https://github.com/agentschools/cfdev.school/tree/main/courses)), and its students can take any course written in it.
+
 ## Learn more
 
 - [SPEC.md](SPEC.md): the format

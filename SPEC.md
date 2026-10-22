@@ -120,7 +120,7 @@ Tell the agent to wait for the student's reply at each of these moments, and put
 
 ## Examples
 
-[Cloudflare Dev School](https://github.com/agentschools/cloudflare-dev-school/tree/main/courses)'s built-in courses use this format:
+[Cloudflare Dev School](https://github.com/agentschools/cfdev.school/tree/main/courses)'s built-in courses use this format:
 
-- [Agent setup's COURSE.md](https://github.com/agentschools/cloudflare-dev-school/blob/main/courses/agent-setup/COURSE.md) and [its interview](https://github.com/agentschools/cloudflare-dev-school/blob/main/courses/agent-setup/exercises/00-interview.md)
-- [The Workers course's COURSE.md](https://github.com/agentschools/cloudflare-dev-school/blob/main/courses/fundamentals/workers/COURSE.md) and ["Deploy a Worker"](https://github.com/agentschools/cloudflare-dev-school/blob/main/courses/fundamentals/workers/exercises/01-deploy-a-worker.md), which checks the deployed URL before completing
+- [Agent setup's COURSE.md](https://github.com/agentschools/cfdev.school/blob/main/courses/agent-setup/COURSE.md) and [its interview](https://github.com/agentschools/cfdev.school/blob/main/courses/agent-setup/exercises/00-interview.md)
+- [The Workers course's COURSE.md](https://github.com/agentschools/cfdev.school/blob/main/courses/fundamentals/workers/COURSE.md) and ["Deploy a Worker"](https://github.com/agentschools/cfdev.school/blob/main/courses/fundamentals/workers/exercises/01-deploy-a-worker.md), which checks the deployed URL before completing

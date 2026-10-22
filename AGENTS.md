@@ -21,7 +21,7 @@ Schools install this as a git dependency, not from npm (nothing is published):
 "@agentschools/course-spec": "github:agentschools/course-spec#<commit sha>"
 ```
 
-`exports` points at TypeScript source (`src/index.ts`) and `SPEC.md`, so consumers need a bundler or test runner that compiles TypeScript from `node_modules` (Vitest 4 does, tested with a packed install; Astro's build hasn't been tested yet). `zod` is a peer dependency. Cloudflare Dev School (https://github.com/agentschools/cloudflare-dev-school) is the first consumer.
+`exports` points at TypeScript source (`src/index.ts`) and `SPEC.md`, so consumers need a bundler or test runner that compiles TypeScript from `node_modules` (Vitest 4 does, tested with a packed install; Astro's build hasn't been tested yet). `zod` is a peer dependency. Cloudflare Dev School (https://github.com/agentschools/cfdev.school) is the first consumer.
 
 ## Scripts
 
