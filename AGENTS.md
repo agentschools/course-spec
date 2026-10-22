@@ -26,6 +26,7 @@ Schools install this as a git dependency, not from npm (nothing is published):
 ## Scripts
 
 - `script/test`: typecheck (`tsc --noEmit`), then `vitest run`. No linter is configured.
+- `.github/workflows/ci.yml` runs `script/test` on pushes to `main` and on pull requests.
 
 ## Style
 
