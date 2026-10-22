@@ -1,0 +1,32 @@
+{
+  "name": "@agentschools/course-spec",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A school-agnostic format for authoring portable course material that AI agents teach.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./SPEC.md": "./SPEC.md"
+  },
+  "files": [
+    "src/*.ts",
+    "!src/*.test.ts",
+    "SPEC.md",
+    "skills"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11",
+    "yaml": "2.9.1",
+    "zod": "4.5.4"
+  }
+}
