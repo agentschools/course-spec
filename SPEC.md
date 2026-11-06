@@ -95,8 +95,8 @@ An introduction.
 
 Every course starts with an interview, so the student's agent can pitch the course at the right level. To write your own, add an exercise with the slug `interview` (`00-interview.md`, or a `## Interview` section). It always comes first, whatever its filename.
 
-- Ask at most four short questions. Claude Code's question tool takes four at a time.
-- Write them as plain prose, like a list. There's no question format, only the agent reads them.
+- Ask at most four short, independent questions, to keep the interview brief.
+- Write them as plain prose, like a list, saying where an answer is free text or can be several choices. There's no question format: the student's agent decides how to ask them, so don't prescribe a harness or question UI, and it shouldn't invent choices for open questions.
 - Ask about the course's subject, not the student's general background. Schools usually ask that once, in their own interview, and share the answers with every course.
 - Interviews aren't quizzed.
 
