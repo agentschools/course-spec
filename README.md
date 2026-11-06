@@ -1,6 +1,6 @@
 # Course spec
 
-A school-agnostic format for writing portable course material that AI agents teach. A course is a folder of plain Markdown files, or a single Markdown file, hosted wherever you like. Anyone can write one, and any school can teach it. You don't need an account or permission.
+A course-authoring agent skill and school-agnostic format for writing portable course material that AI agents teach. A course is a folder of plain Markdown files, or a single Markdown file, hosted wherever you like. Anyone can write one, and any school can teach it. You don't need an account or permission.
 
 Students take a course with their own AI coding agent: the agent reads the course, teaches each exercise in conversation, and checks the student's work before moving on.
 
@@ -24,7 +24,9 @@ To install the `create-course` skill in your agent instead, run:
 npx skills add agentschools/course-spec
 ```
 
-Then ask your agent to help you write a course.
+Then ask your agent to help you write a course. The skill includes its format reference and examples, so an installed copy works without fetching instructions from `main`.
+
+Schools can check a pinned copy into `.agents/skills/create-course/`: `SKILL.md`, `SPEC.md`, `LICENSE`, and `src/` (including tests). Record the upstream commit, update those files together, and review the diff. The TypeScript rules can be imported directly from the skill's `src/index.ts` by a bundler that supports TypeScript. Zod 4 is required at runtime; Vitest and YAML run the tests. No npm dependency on this repo is needed. Existing package exports remain available for consumers migrating to the skill.
 
 ## Who uses it
 
@@ -33,7 +35,7 @@ Then ask your agent to help you write a course.
 ## Learn more
 
 - [SPEC.md](SPEC.md): the format
-- [skills/create-course](skills/create-course/SKILL.md): an [Agent Skill](https://agentskills.io) for writing a course with your agent
+- [SKILL.md](SKILL.md): an [Agent Skill](https://agentskills.io) for writing a course with your agent
 - [AGENTS.md](AGENTS.md): how this repo is set up, for contributors and their agents
 
 ## License

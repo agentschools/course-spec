@@ -47,10 +47,12 @@ describe("SPEC.md", () => {
 
 describe("create-course skill", () => {
   it("has SKILL.md frontmatter that follows the Agent Skills spec", () => {
-    const skill = readFileSync(new URL("../skills/create-course/SKILL.md", import.meta.url), "utf8");
+    const skill = readFileSync(new URL("../SKILL.md", import.meta.url), "utf8");
     const data = parseYaml(skill.match(/^---\n([\s\S]*?)\n---\n/)![1]);
-    // A skill's frontmatter fields are the same as a course's, and `name` matches its directory.
+    // A skill's frontmatter fields are the same as a course's.
     expect(courseFrontmatterSchema.safeParse(data).error).toBeUndefined();
     expect(data.name).toBe("create-course");
+    // Installed skills must use their bundled reference, not a moving remote copy.
+    expect(skill).toContain("[SPEC.md](SPEC.md)");
   });
 });

@@ -13,7 +13,7 @@
     "src/*.ts",
     "!src/*.test.ts",
     "SPEC.md",
-    "skills"
+    "SKILL.md"
   ],
   "scripts": {
     "test": "vitest run",

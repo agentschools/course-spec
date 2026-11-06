@@ -5,7 +5,7 @@ This repo defines the COURSE.md format: a school-agnostic format for courses tha
 ## Layout
 
 - `SPEC.md`: the format, for authors and schools. The source of truth for the prose rules.
-- `skills/create-course/SKILL.md`: an Agent Skill (follows the agentskills.io spec) with the procedure for an author's agent. It links to `SPEC.md` by its raw GitHub URL instead of repeating it, so the skill directory can be installed on its own. `README.md`'s copy-paste prompt points at the same skill by raw URL.
+- `SKILL.md`: an Agent Skill (follows the agentskills.io spec) with the procedure for an author's agent. It reads the adjacent `SPEC.md`, so a pinned install is self-contained. The repo root is the skill directory; `src/` includes the matching runtime rules and tests for schools.
 - `src/rules.ts`: ordering, slug, title, and interview-first rules. `src/schemas.ts`: Zod schemas for `COURSE.md` and exercise frontmatter. `src/index.ts` re-exports both.
 - `src/spec.test.ts`: checks `SPEC.md`'s stated rules and the frontmatter in its examples against the code, and the skill's frontmatter against the Agent Skills rules. When the format changes, update `SPEC.md` and the code in the same commit.
 
@@ -15,13 +15,9 @@ Nothing here may depend on a particular school. School-specific behavior (defaul
 
 ## Consumers
 
-Schools install this as a git dependency, not from npm (nothing is published):
+Schools vendor a pinned copy of `SKILL.md`, `SPEC.md`, `LICENSE`, and `src/` (including tests) into `.agents/skills/create-course/`, recording the upstream commit. Update all of them together. Schools import the TypeScript source directly with their bundler; `zod` is required at runtime, and `vitest` plus `yaml` run the tests. Cloudflare Dev School (https://github.com/agentschools/cfdev.school) is the first consumer.
 
-```json
-"@agentschools/course-spec": "github:agentschools/course-spec#<commit sha>"
-```
-
-`exports` points at TypeScript source (`src/index.ts`) and `SPEC.md`, so consumers need a bundler or test runner that compiles TypeScript from `node_modules` (Vitest 4 does, tested with a packed install; Astro's build hasn't been tested yet). `zod` is a peer dependency. Cloudflare Dev School (https://github.com/agentschools/cfdev.school) is the first consumer.
+The package exports remain for existing consumers migrating from the GitHub npm dependency. Keep them working while the skill becomes the primary distribution. The repo's own `package.json` and lockfile provide its development and CI tools.
 
 ## Scripts
 
