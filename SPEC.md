@@ -34,7 +34,7 @@ What the course covers and who it's for, in a paragraph or two.
   - `url`: the course's canonical URL. Schools key students' progress by the course's URL, so set this if the course might move or get linked to in more than one way. Otherwise it's the URL the student gave their agent.
 - `license` and `compatibility` (prerequisites: accounts, tools, or other courses, at most 500 characters): optional, as in an Agent Skill's `SKILL.md`.
 - No other keys. Schools may reject unknown ones, so a typo fails loudly instead of being ignored.
-- Then a `# Title` and an introduction.
+- Then a `# Title` and an introduction: what the course is about, who it's for, and what the student will end up with. Don't repeat the list of exercises; schools usually show it next to the introduction.
 
 ## Exercises
 
@@ -91,6 +91,12 @@ An introduction.
 ...
 ```
 
+### Write the body as a tutorial
+
+Make the body a complete tutorial with a default example: every step as its own section (`##` in an exercise file, `###` in a single-file course), with its commands and code. A student can follow it on the web, and every student's agent builds the same thing from it. Keep `agent-instructions` to short cues on top: the choices to ask the student for, where to ask for a prediction, the check, and what to shorten for students who already know a part. The agent swaps in the student's names and pitches each step to them.
+
+If the student builds on the same thing across exercises, like an app or a test page, keep its shape stable, so each exercise's change stays small.
+
 ## The interview
 
 Every course starts with an interview, so the student's agent can pitch the course at the right level. To write your own, add an exercise with the slug `interview` (`00-interview.md`, or a `## Interview` section). It always comes first, whatever its filename.
@@ -101,6 +107,16 @@ Every course starts with an interview, so the student's agent can pitch the cour
 - Interviews aren't quizzed.
 
 Leave it out and the school adds a default interview, usually one where the agent writes a few questions from your course's content.
+
+## Personalize every exercise
+
+The interview is only worth asking if its answers change the course. Plan for that from the start:
+
+- Use every answer somewhere in the course, or don't ask the question.
+- If students will want different amounts of detail, ask how deep they want to go: for example the big picture with no code, how it works with the key settings, or hands-on with all the code. Ask about depth, not job titles: few students describe themselves with the terms your company uses. Example roles can be hints.
+- Everyone builds the same thing; only the explanation changes. Say in the interview's `agent-instructions` what each level gets: what the agent shows, the words it uses, and the kind of question it asks.
+- Repeat a one-line cue for each level in every exercise. A later exercise may be taught in a fresh session whose agent never read the interview's instructions.
+- Let the student change their answer anytime, for example by saying "less code" or "go deeper".
 
 ## Make every exercise checkable
 
@@ -115,8 +131,11 @@ The student's agent does the work: it runs the commands, writes the code, and de
 - Have the agent show the key change (a config line, a handler) and wait for the student's OK before it ships.
 - Ask a "what would change if…" question that applies the idea to a new case.
 - Give the student something to try once it works: change it and redeploy, or store a few values of their own.
+- Let the student see the problem before the fix, and let them investigate it: have them run the traffic or click the buttons and guess what's wrong, instead of finding an answer the agent set up for them.
 
 Tell the agent to wait for the student's reply at each of these moments, and put try-it steps before the check that completes the exercise. Agents mark an exercise complete and move on, so anything written after that gets skipped.
+
+Be honest where a demo cuts corners (for example, a button that stands in for a signed-in user), and make sure the course's code doesn't contradict what the course teaches.
 
 ## Examples
 
