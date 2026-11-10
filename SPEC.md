@@ -114,7 +114,6 @@ The interview is only worth asking if its answers change the course. Plan for th
 
 - Use every answer somewhere in the course, or don't ask the question.
 - If students will want different amounts of detail, ask how deep they want to go: for example the big picture with no code, how it works with the key settings, or hands-on with all the code. Ask about depth, not job titles: few students describe themselves with the terms your company uses. Example roles can be hints.
-- Everyone builds the same thing; only the explanation changes. Say in the interview's `agent-instructions` what each level gets: what the agent shows, the words it uses, and the kind of question it asks.
 - Repeat a one-line cue for each level in every exercise. A later exercise may be taught in a fresh session whose agent never read the interview's instructions.
 - Let the student change their answer anytime, for example by saying "less code" or "go deeper".
 
