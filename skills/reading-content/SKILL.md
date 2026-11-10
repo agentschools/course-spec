@@ -1,8 +1,13 @@
 ---
 name: reading-content
 description: >-
-  Creates or assesses text components of a course material. Use this skill when
-  creating and revising courses.
+  Writes and reviews learner-facing text anywhere in a course: reading
+  sections, exercise instructions, hints, and test or check prompts. Keeps
+  text in short sections, replaces label/value bullet lists with tables,
+  highlights key notes and warnings, adds comprehension checks, and keeps the
+  focus on the Cloudflare product's distinguishing features and gotchas. Use
+  when drafting, revising or assessing any course text a learner will read,
+  including content presented in an agent's terminal.
 ---
 
 - Break the content into short sections.
