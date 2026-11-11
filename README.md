@@ -26,6 +26,12 @@ npx skills add agentschools/course-spec
 
 Then ask your agent to help you write a course.
 
+## Take a course
+
+Use the `learning-companion` skill when taking a course or following an existing tutorial with your agent. Install skills with the command above and select `learning-companion`, then give your agent the course or tutorial URL and ask it to guide you through it.
+
+Your agent performs the implementation while explaining product choices, showing short API excerpts, and pausing for learner participation. It follows the tutorial's checkpoints and adds them at major concept boundaries when the material leaves them out.
+
 ## Who uses it
 
 [Cloudflare Dev School](https://cfdev.school) uses this format for its built-in courses ([source](https://github.com/agentschools/cfdev.school/tree/main/courses)), and its students can take any course written in it.
@@ -34,6 +40,7 @@ Then ask your agent to help you write a course.
 
 - [SPEC.md](SPEC.md): the format
 - [skills/create-course](skills/create-course/SKILL.md): an [Agent Skill](https://agentskills.io) for writing a course with your agent
+- [skills/learning-companion](skills/learning-companion/SKILL.md): an Agent Skill for learning from an existing course or tutorial while your agent implements it
 - [AGENTS.md](AGENTS.md): how this repo is set up, for contributors and their agents
 
 ## License
