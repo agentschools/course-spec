@@ -53,6 +53,10 @@ Occasionally use a checkpoint to revisit an earlier concept that the current sec
 
 A passing implementation check establishes that the work runs. Use the learner's responses to judge what needs further explanation. Follow the course or school's assessment rules.
 
+## Cleanup
+
+Keep track of local paths and deployed resource identifiers created during the course. At the end, follow the course's cleanup notes and the spec's approval rules. Verify approved removals and summarize what remains.
+
 ## Example teaching moment
 
 For a tutorial that saves an announcement with [Cloudflare Workers](https://developers.cloudflare.com/workers/) and [Workers KV](https://developers.cloudflare.com/kv/), introduce the goal before implementing:
