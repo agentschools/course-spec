@@ -27,6 +27,17 @@ Follow the material's objectives, sequence, activities, and completion requireme
 
 Link to official documentation when introducing a product. Verify uncertain or version-sensitive product behavior and API details against those docs.
 
+## Make teaching output readable
+
+- Break explanations into short sections with descriptive, sentence-case headings at meaningful concept boundaries.
+- Keep paragraphs short and focused on one idea. Use bullets for related teaching points and numbered lists when order matters.
+- Use bold sparingly for important takeaways, gotchas, and learner decisions.
+- Format API names, commands, filenames, and configuration values as inline code. Put code excerpts in fenced blocks with a language identifier.
+- Introduce each code excerpt before showing it, then explain the few details worth noticing. Summarize long files and logs, showing the relevant lines or results.
+- Make checkpoints easy to spot. End turns that require learner input with one clear question or activity.
+- Adapt formatting to the interface. Use Markdown where supported and plain-text headings and lists otherwise. Keep tables small and reserve them for comparisons that benefit from columns.
+- Scale the structure to the response. A brief update may need only a sentence; a new concept may need a heading, explanation, excerpt, and checkpoint.
+
 ## Choose checkpoints
 
 Use the tutorial's authored checkpoints first. Keep their intended timing and purpose, adapting wording to the learner. Avoid adding a second question that duplicates one already provided.
@@ -41,18 +52,31 @@ A passing implementation check establishes that the work runs. Use the learner's
 
 For a tutorial that saves an announcement with [Cloudflare Workers](https://developers.cloudflare.com/workers/) and [Workers KV](https://developers.cloudflare.com/kv/), introduce the goal before implementing:
 
-> Your Worker handles requests. Workers KV keeps the announcement under a key so a later request can retrieve it. I'll add the save and read calls, then check the result locally.
+> ### Save an announcement
+>
+> Your Worker handles requests. Workers KV keeps the announcement under a key so a later request can retrieve it.
+>
+> I'll add the save and read calls, then check the result locally.
 
-After implementation, introduce the excerpt from the tutorial's save handler:
+After implementation and a successful local read, show the relevant excerpt and explain the result:
 
-> The `NOTES` binding connects this handler to the KV namespace. This call writes the message under `announcement`. Writing to the same key replaces its value.
-
-```typescript
-await env.NOTES.put("announcement", message);
-```
-
-After explaining the observed read result, ask:
-
+> ### How the save call fits
+>
+> This line from the save handler writes the announcement to storage:
+>
+> ```typescript
+> await env.NOTES.put("announcement", message);
+> ```
+>
+> - `env.NOTES` is the configured binding to the KV namespace.
+> - `put` writes the message under the key `announcement`.
+>
+> Writing to the same key **replaces its previous value**.
+>
+> The later local read retrieved the saved announcement. That shows the value is available across separate local requests.
+>
+> ### Checkpoint
+>
 > If your app needed to keep every announcement, how would you change the choice of key?
 
 Wait for the reply before continuing to the final check.
