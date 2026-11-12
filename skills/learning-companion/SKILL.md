@@ -52,36 +52,3 @@ At each checkpoint, ask a focused question about material already taught: predic
 Occasionally use a checkpoint to revisit an earlier concept that the current section builds on. Let the learner attempt to recall or apply it before repeating the explanation. Give specific feedback on their reasoning, correcting misunderstandings with a different example when needed. Preserve authored checkpoints' timing and purpose.
 
 A passing implementation check establishes that the work runs. Use the learner's responses to judge what needs further explanation. Follow the course or school's assessment rules.
-
-## Example teaching moment
-
-For a tutorial that saves an announcement with [Cloudflare Workers](https://developers.cloudflare.com/workers/) and [Workers KV](https://developers.cloudflare.com/kv/), introduce the goal before implementing:
-
-> ### Save an announcement
->
-> Your Worker handles requests. Workers KV keeps the announcement under a key so a later request can retrieve it.
->
-> I'll add the save and read calls, then check the result locally.
-
-After implementation and a successful local read, show the relevant excerpt and explain the result:
-
-> ### How the save call fits
->
-> This line from the save handler writes the announcement to storage:
->
-> ```typescript
-> await env.NOTES.put("announcement", message);
-> ```
->
-> - `env.NOTES` is the configured binding to the KV namespace.
-> - `put` writes the message under the key `announcement`.
->
-> Writing to the same key **replaces its previous value**.
->
-> The later local read retrieved the saved announcement. That shows the value is available across separate local requests.
->
-> ### Checkpoint
->
-> If your app needed to keep every announcement, how would you change the choice of key?
-
-Wait for the reply before continuing to the final check.
