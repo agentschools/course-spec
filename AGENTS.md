@@ -5,7 +5,7 @@ This repo defines the COURSE.md format: a school-agnostic format for courses tha
 ## Layout
 
 - `SPEC.md`: the format, for authors and schools. The source of truth for the prose rules.
-- `skills/create-course/SKILL.md`: an Agent Skill (follows the agentskills.io spec) with the procedure for an author's agent. It links to `SPEC.md` by its raw GitHub URL instead of repeating it, so the skill directory can be installed on its own. `README.md`'s copy-paste prompt points at the same skill by raw URL.
+- `skills/`: authoring skills used from this repo. `create-course` plans, scaffolds, validates, and tests a course, using `create-lesson` to write and revise individual teaching exercises. `create-course` links to `SPEC.md` by its raw GitHub URL instead of repeating it, so the skill directory can be installed on its own. `README.md`'s copy-paste prompt points at the same skill by raw URL.
 - `src/rules.ts`: ordering, slug, title, and interview-first rules. `src/schemas.ts`: Zod schemas for `COURSE.md` and exercise frontmatter. `src/index.ts` re-exports both.
 - `src/spec.test.ts`: checks `SPEC.md`'s stated rules and the frontmatter in its examples against the code, and the skill's frontmatter against the Agent Skills rules. When the format changes, update `SPEC.md` and the code in the same commit.
 
