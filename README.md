@@ -28,9 +28,13 @@ Then ask your agent to help you write a course.
 
 ## Take a course
 
-Use the `learning-companion` skill when taking a course or following an existing tutorial with your agent. Install skills with the command above and select `learning-companion`, then give your agent the course or tutorial URL and ask it to guide you through it.
+The `learning-companion` skill assists agents in teaching learners while the learner is taking a course. The agent follows course steps while explaining product choices, highlighting relevant code snippets, and pausing for learner participation.
 
-Your agent performs the implementation while explaining product choices, showing short API excerpts, and pausing for learner participation. It follows the tutorial's checkpoints and adds them at major concept boundaries when the material leaves them out.
+To install the `learning-companion` skill, learners should run:
+
+```sh
+npx skills add agentschools/course-spec
+```
 
 ## Who uses it
 
