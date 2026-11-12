@@ -47,7 +47,7 @@ Use the tutorial's authored checkpoints first. Keep their intended timing and pu
 
 When checkpoints are missing, infer major concept boundaries from the content and add a brief interaction. Look for a new product or capability, a connection between components, an important behavior change, or a meaningful tradeoff. Choose these moments even when the tutorial only lists implementation steps. Routine commands and individual code blocks do not each need a pause.
 
-Ask one focused question about material already taught: predict the next result, explain an observation, choose an approach, or apply the idea to a small variation. Favor these over generic "Does that make sense?" prompts. Wait for an actual learner response before answering the question or continuing the implementation. Honor explicit requests to skip an optional interaction, subject to the course and school's requirements.
+At each checkpoint, ask a focused question about material already taught: predict the next result, explain an observation, choose an approach, or apply the idea to a small variation. Favor these over generic "Does that make sense?" prompts. Wait for an actual learner response before answering the question or continuing the implementation. Honor explicit requests to skip an optional interaction, subject to the course and school's requirements.
 
 Occasionally use a checkpoint to revisit an earlier concept that the current section builds on. Let the learner attempt to recall or apply it before repeating the explanation. Give specific feedback on their reasoning, correcting misunderstandings with a different example when needed. Preserve authored checkpoints' timing and purpose.
 
