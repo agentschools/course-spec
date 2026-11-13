@@ -56,21 +56,21 @@ durable-objects-course/
 
 ```markdown title="exercises/01-first-object.md"
 ---
-description: "Create a Durable Object and call it from a Worker."
+description: "Build a counter that keeps its state between Worker requests."
 agent-instructions: |
   Help the student add a counter Durable Object to their Worker and
   deploy it. Before marking this exercise complete, fetch the deployed
   URL twice yourself and check the count went up.
 ---
 
-# Your first object
+# Create a counter
 
 What the student will build and why, written for the student.
 ```
 
 The body is for the student and their agent alike. Schools may show it to students on the web as a preview, so keep anything only the agent needs in `agent-instructions`.
 
-In a single file, each `##` section of `COURSE.md` is an exercise, in order. Its title is the heading's text and its slug is the heading's GitHub-style anchor, so `## Your first object` is `your-first-object`. There's no frontmatter per exercise, so address any notes for the agent in the section itself.
+In a single file, each `##` section of `COURSE.md` is an exercise, in order. Its title is the heading's text and its slug is the heading's GitHub-style anchor, so `## Create a counter` is `create-a-counter`. There's no frontmatter per exercise, so address any notes for the agent in the section itself.
 
 ```markdown title="COURSE.md"
 ---
@@ -90,6 +90,11 @@ An introduction.
 
 ...
 ```
+
+### Write clear titles and descriptions
+
+- Keep exercise titles short and descriptive. Use an imperative verb-object phrase, such as "Create a counter" or "Deploy a Worker", to say what the student will accomplish. Keep the interview title as "Interview".
+- When an exercise has a `description`, aim for one clear sentence summarizing the student's action or outcome at a high level. Add context beyond the title instead of repeating it, and avoid comma-separated task lists. Put individual steps in the body.
 
 ### Write the body as a tutorial
 
