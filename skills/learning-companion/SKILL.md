@@ -47,7 +47,7 @@ Use the tutorial's authored checkpoints first. Keep their intended timing and pu
 
 When checkpoints are missing, infer major concept boundaries from the content and add a brief interaction. Look for a new product or capability, a connection between components, an important behavior change, or a meaningful tradeoff. Choose these moments even when the tutorial only lists implementation steps. Routine commands and individual code blocks do not each need a pause.
 
-Ask one focused question about material already taught: predict the next result, explain an observation, choose an approach, or apply the idea to a small variation. Favor these over generic "Does that make sense?" prompts. Wait for an actual learner response before answering the question or continuing the implementation. Honor explicit requests to skip an optional interaction, subject to the course and school's requirements.
+At each checkpoint, ask a focused question about material already taught: predict the next result, explain an observation, choose an approach, or apply the idea to a small variation. Favor these over generic "Does that make sense?" prompts. Wait for an actual learner response before answering the question or continuing the implementation. Honor explicit requests to skip an optional interaction, subject to the course and school's requirements.
 
 Occasionally use a checkpoint to revisit an earlier concept that the current section builds on. Let the learner attempt to recall or apply it before repeating the explanation. Give specific feedback on their reasoning, correcting misunderstandings with a different example when needed. Preserve authored checkpoints' timing and purpose.
 
@@ -56,36 +56,3 @@ A passing implementation check establishes that the work runs. Use the learner's
 ## Cleanup
 
 Keep track of local paths and deployed resource identifiers created during the course. At the end, follow the course's cleanup notes and the spec's approval rules. Verify approved removals and summarize what remains.
-
-## Example teaching moment
-
-For a tutorial that saves an announcement with [Cloudflare Workers](https://developers.cloudflare.com/workers/) and [Workers KV](https://developers.cloudflare.com/kv/), introduce the goal before implementing:
-
-> ### Save an announcement
->
-> Your Worker handles requests. Workers KV keeps the announcement under a key so a later request can retrieve it.
->
-> I'll add the save and read calls, then check the result locally.
-
-After implementation and a successful local read, show the relevant excerpt and explain the result:
-
-> ### How the save call fits
->
-> This line from the save handler writes the announcement to storage:
->
-> ```typescript
-> await env.NOTES.put("announcement", message);
-> ```
->
-> - `env.NOTES` is the configured binding to the KV namespace.
-> - `put` writes the message under the key `announcement`.
->
-> Writing to the same key **replaces its previous value**.
->
-> The later local read retrieved the saved announcement. That shows the value is available across separate local requests.
->
-> ### Checkpoint
->
-> If your app needed to keep every announcement, how would you change the choice of key?
-
-Wait for the reply before continuing to the final check.
