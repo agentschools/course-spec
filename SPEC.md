@@ -136,6 +136,10 @@ Tell the agent to wait for the student's reply at each of these moments, and put
 
 Be honest where a demo cuts corners (for example, a button that stands in for a signed-in user), and make sure the course's code doesn't contradict what the course teaches.
 
+## Cleanup
+
+At the end of a course, offer to clean up local and deployed resources created during it. Explain any ongoing costs and ask what the student wants to keep. Get approval before deleting anything, preserve pre-existing or shared resources, and keep local source code by default. Cleanup is optional and doesn't block course completion.
+
 ## Examples
 
 [Cloudflare Dev School](https://github.com/agentschools/cfdev.school/tree/main/courses)'s built-in courses use this format:

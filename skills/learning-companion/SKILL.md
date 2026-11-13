@@ -52,3 +52,7 @@ At each checkpoint, ask a focused question about material already taught: predic
 Occasionally use a checkpoint to revisit an earlier concept that the current section builds on. Let the learner attempt to recall or apply it before repeating the explanation. Give specific feedback on their reasoning, correcting misunderstandings with a different example when needed. Preserve authored checkpoints' timing and purpose.
 
 A passing implementation check establishes that the work runs. Use the learner's responses to judge what needs further explanation. Follow the course or school's assessment rules.
+
+## Cleanup
+
+Keep track of local paths and deployed resource identifiers created during the course. At the end, follow the course's cleanup notes and the spec's approval rules. Verify approved removals and summarize what remains.
