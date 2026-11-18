@@ -18,7 +18,7 @@ describe("optional pop quiz data", () => {
     const reordered = { ...quiz, choices: [...quiz.choices].reverse() };
     expect(evaluatePopQuiz(reordered, "no-flour")).toEqual({ quizId: "stop-mixing", choiceId: "no-flour", correct: true, feedback: quiz.choices[1].feedback, mode: "practice" });
     expect(evaluatePopQuiz(quiz, "smooth").correct).toBe(false);
-    expect(evaluatePopQuiz({ ...quiz, mode: "progression" }, "no-flour").mode).toBe("progression");
+    expect(evaluatePopQuiz({ ...quiz, mode: "required" }, "no-flour").mode).toBe("required");
   });
 
   it.each([
@@ -34,7 +34,7 @@ describe("optional pop quiz data", () => {
     { ...quiz, choices: [{ ...quiz.choices[0], feedback: "x".repeat(2049) }, quiz.choices[1]] },
     { ...quiz, choices: [{ ...quiz.choices[0], correct: false }, quiz.choices[1]] },
     { ...quiz, answer: "missing" }, { ...quiz, answer: ["no-flour", "smooth"] },
-    { ...quiz, answer: undefined }, { ...quiz, mode: "graded" }, { ...quiz, mode: false },
+    { ...quiz, answer: undefined }, { ...quiz, mode: "progression" }, { ...quiz, mode: "graded" }, { ...quiz, mode: false },
     { ...quiz, mode: "false" }, { ...quiz, onSubmit: "run()" },
     { ...quiz, question: { type: "variable", path: ["secret"] } },
   ])("rejects malformed or ambiguous data %#", (invalid) => {

@@ -116,15 +116,15 @@ Attributes are literal data only:
 - `question`: required nonblank plain text, at most 1,024 characters.
 - `choices`: required array of 2–8 objects. Each contains only a stable `id`, a nonblank `label` (at most 512 characters), and nonblank `feedback` (at most 2,048 characters). Choice IDs follow the same naming rule and must be unique within the quiz. Labels must be distinct after trimming surrounding whitespace and ignoring case.
 - `answer`: required string containing exactly one existing choice ID. It is not an array or an index. There are no per-choice correctness booleans.
-- `mode`: `practice` (the default) or `progression`. No other values or attributes.
+- `mode`: `practice` (the default) or `required`. No other values or attributes.
 
 The normal Markdown fallback must repeat the same question and choice labels in the same order. It must not state which choice is correct before the learner answers. Keep authored feedback in the data, not in an immediately displayed answer list. This is not secure assessment data: anyone can read the answer key in the source. Use it for learning, not high-stakes grading.
 
 Renumbering exercises or reordering choices must not change their IDs. Scope persisted answers by canonical course URL, exercise slug and quiz ID, and record the selected choice ID, never its display number. If a question or choice changes meaning, use new IDs or invalidate affected saved answers. Persistence and content revision policy belong to the school; this spec does not introduce a progress API or repository writes.
 
-### Practice and progression
+### Practice and required checkpoints
 
-For `practice`, the learner may answer, retry or skip. It must not gate the exercise. For `progression`, a correct submitted answer is an authored knowledge checkpoint before the agent considers moving on. It is never sufficient evidence that an exercise's practical check or physical action happened. The existing checks in `agent-instructions` still apply; the school retains its completion policy.
+For `practice`, the learner may answer, retry or skip. It must not gate the exercise. For `required`, a correct submitted answer is an authored knowledge checkpoint before the agent considers moving on. It is never sufficient evidence that an exercise's practical check or physical action happened. The existing checks in `agent-instructions` still apply; the school retains its completion policy.
 
 Selecting an option is not submission. After the learner explicitly submits one choice, return that choice's feedback and whether it is correct. Let the learner change the selection and submit again. Do not automatically complete the exercise, run a tool, or advance to the next lesson on selection or on a correct answer. The learner's subsequent request to continue is separate from evaluating the quiz.
 
@@ -132,7 +132,7 @@ A renderer should use keyboard-operable radio controls with associated labels, a
 
 ### Chat-only fallback
 
-An agent without a quiz UI presents the question and choices as ordinary text, asks for one answer, and waits. Map the learner's current display number or unambiguous text to its stable ID; ask for clarification if ambiguous. Evaluate the selected ID and give its feedback, then allow another attempt. Do not choose on the learner's behalf or disclose the correct answer in the chat presentation before an attempt; the public source and plain Markdown view still expose it. In progression mode, handle the same checkpoint in chat rather than deadlocking on an unavailable widget. If the data is invalid or unavailable, explain the problem instead of silently marking it passed; the school or author must resolve it or explicitly use its own completion policy.
+An agent without a quiz UI presents the question and choices as ordinary text, asks for one answer, and waits. Map the learner's current display number or unambiguous text to its stable ID; ask for clarification if ambiguous. Evaluate the selected ID and give its feedback, then allow another attempt. Do not choose on the learner's behalf or disclose the correct answer in the chat presentation before an attempt; the public source and plain Markdown view still expose it. In required mode, handle the same checkpoint in chat rather than deadlocking on an unavailable widget. If the data is invalid or unavailable, explain the problem instead of silently marking it passed; the school or author must resolve it or explicitly use its own completion policy.
 
 ### Parsing and validation boundary
 

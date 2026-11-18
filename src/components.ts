@@ -15,7 +15,7 @@ export const popQuizSchema = z.strictObject({
   question: text(1024),
   choices: z.array(popQuizChoiceSchema).min(2).max(8),
   answer: courseNameSchema,
-  mode: z.enum(["practice", "progression"]).default("practice"),
+  mode: z.enum(["practice", "required"]).default("practice"),
 }).superRefine((quiz, ctx) => {
   const ids = new Set<string>();
   const labels = new Set<string>();
