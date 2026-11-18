@@ -51,6 +51,12 @@ npx skills add agentschools/course-spec
 
 This draft explores optional declarative Markdoc components, starting with single-answer pop quizzes. Ordinary `.md` remains valid. See [the proposed section](SPEC.md#optional-declarative-components-proposal) and [a portable example](examples/pop-quiz.md). It is not an adopted standard or a complete renderer.
 
+## Schema-first validation
+
+Zod schemas provide executable validation and inferred TypeScript types. The generated [JSON Schemas](schemas/) support other languages and tools, with supplemental cross-field and document constraints described in SPEC.md. They validate decoded input, not Markdown. JSON Schema defaults are annotations, not automatic mutations.
+
+Run `npm run schemas:generate` after changing Zod definitions. `npm run schemas:check` and `script/test` reject drift. The generator and JSON Schema test validator are development dependencies only.
+
 ## License
 
 [MIT](LICENSE)

@@ -26,19 +26,19 @@ export const courseFrontmatterSchema = z.strictObject({
   description: z.string().min(1).max(1024).meta({
     description: "What the course teaches and who it's for.",
   }),
-  license: z.string().min(1).optional(),
+  license: z.string().min(1).optional().describe("Course license, as in an Agent Skill."),
   compatibility: z.string().min(1).max(500).optional().meta({
     description: "Prerequisites: accounts, tools, or courses the student needs first.",
   }),
   metadata: z.record(z.string(), z.string()).optional().meta({
-    description: "Anything else, as strings. The spec defines `author` and `url`.",
+    description: "String metadata. author credits the author; url is the canonical course URL used to key progress, otherwise the learner-provided URL.",
   }),
 });
 
 /** Exercise file frontmatter. Everything is optional, the body is the exercise. */
 export const exerciseFrontmatterSchema = z.strictObject({
-  description: z.string().min(1).optional(),
-  "agent-instructions": z.string().min(1).optional(),
+  description: z.string().min(1).optional().describe("One-line summary of the exercise outcome."),
+  "agent-instructions": z.string().min(1).optional().describe("Agent-only teaching cues and completion checks; the body is shared with learners."),
 });
 
 export type CourseFrontmatter = z.infer<typeof courseFrontmatterSchema>;

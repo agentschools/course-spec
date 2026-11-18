@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "description": {
+      "description": "One-line summary of the exercise outcome.",
+      "type": "string",
+      "minLength": 1
+    },
+    "agent-instructions": {
+      "description": "Agent-only teaching cues and completion checks; the body is shared with learners.",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "Generated from Zod. Do not edit. See SPEC.md for supplemental cross-field and document constraints. Defaults are annotations, not mutations."
+}

@@ -26,13 +26,13 @@ describe("SPEC.md", () => {
     }
   });
 
-  it("uses example names that pass the naming rules, and states the real length limits", () => {
+  it("uses valid example names and links generated field definitions", () => {
     for (const [, name] of spec.matchAll(/^name: (.+)$/gm)) {
       expect(courseNameSchema.safeParse(name).success, name).toBe(true);
     }
-    expect(spec).toContain(`at most ${courseNameSchema.maxLength} characters`);
-    expect(spec).toContain(`at most ${courseFrontmatterSchema.shape.description.maxLength?.toLocaleString("en-US")} characters`);
-    expect(spec).toContain(`at most ${courseFrontmatterSchema.shape.compatibility.unwrap().maxLength} characters`);
+    expect(spec).toContain("schemas/course-frontmatter.schema.json");
+    expect(spec).toContain("schemas/exercise-frontmatter.schema.json");
+    expect(spec).toContain("schemas/pop-quiz.schema.json");
   });
 
   it("describes the real slug, order, and interview rules", () => {

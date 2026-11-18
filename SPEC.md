@@ -11,6 +11,10 @@ This document is for course authors and for schools: the apps that track student
 
 Private repos, and courses in a subdirectory of a repo, aren't supported yet.
 
+## Validation
+
+Zod definitions in [src/schemas.ts](src/schemas.ts) and [src/components.ts](src/components.ts) are the executable source of truth and infer TypeScript types. Generated [JSON Schemas](schemas/) describe decoded input data in draft 2020-12, not Markdown syntax. JSON defaults are annotations; consumers must apply the documented defaults themselves. Regenerate with `npm run schemas:generate`; `script/test` checks drift. Cross-field and document rules below supplement the portable schemas.
+
 ## COURSE.md
 
 ```markdown title="COURSE.md"
@@ -27,14 +31,7 @@ metadata:
 What the course covers and who it's for, in a paragraph or two.
 ```
 
-- `name`: lowercase letters, numbers, and single hyphens, at most 64 characters.
-- `description`: what the course teaches and who it's for, at most 1,024 characters.
-- `metadata`: optional string keys and values. Two are defined:
-  - `author`: who wrote the course, shown to students.
-  - `url`: the course's canonical URL. Schools key students' progress by the course's URL, so set this if the course might move or get linked to in more than one way. Otherwise it's the URL the student gave their agent.
-- `license` and `compatibility` (prerequisites: accounts, tools, or other courses, at most 500 characters): optional, as in an Agent Skill's `SKILL.md`.
-- No other keys. Schools may reject unknown ones, so a typo fails loudly instead of being ignored.
-- Then a `# Title` and an introduction: what the course is about, who it's for, and what the student will end up with. Don't repeat the list of exercises; schools usually show it next to the introduction.
+Field definitions live in the generated [course frontmatter schema](schemas/course-frontmatter.schema.json), derived from Zod. Unknown fields are rejected. `metadata.author` credits the author; `metadata.url` is the canonical URL used to key progress, otherwise use the URL the learner supplied. Follow frontmatter with a `# Title` and an introduction for the learner, not a duplicated exercise list.
 
 ## Exercises
 
@@ -52,7 +49,7 @@ durable-objects-course/
 - Order: natural filename order, so `2-alarms.md` comes before `10-cleanup.md`.
 - Slug: the filename without `.md` or its number prefix, so `01-first-object.md` is `first-object`. Renumbering files to insert an exercise doesn't change slugs, so students keep their progress. Slugs follow the same rules as `name`.
 - Title: the file's first `#` heading.
-- Frontmatter is optional: a one-line `description`, and `agent-instructions`, which only the student's agent reads. No other keys.
+- Optional frontmatter follows the [exercise schema](schemas/exercise-frontmatter.schema.json). Keep agent-only cues in `agent-instructions`; the body is shared with learners.
 
 ```markdown title="exercises/01-first-object.md"
 ---
@@ -104,45 +101,37 @@ If the student builds on the same thing across exercises, like an app or a test 
 
 ## Optional declarative components (proposal)
 
-This section is exploratory. Ordinary `.md` remains the course format; no `.mdx` migration, JavaScript imports, new frontmatter keys, or interactive renderer is required. A course can include an optional, authored knowledge check using a literal [Markdoc tag](https://markdoc.dev/docs/syntax). This does not replace a school's quizzes or progress policy. Interviews still are not quizzed.
+An exercise may include a literal [Markdoc](https://markdoc.dev/docs/syntax) `pop-quiz` block. Ordinary `.md`, existing frontmatter and completion policy stay unchanged; no `.mdx`, JavaScript imports or renderer is required. Interviews are not quizzed. See the complete [example](examples/pop-quiz.md) and [pop-quiz data schema](schemas/pop-quiz.schema.json).
 
-### A pop quiz
+### Data and identity
 
-The first proposed component is a block-level `pop-quiz` tag in an exercise body, or inside a single-file course's exercise section. See the complete [example](examples/pop-quiz.md). The tag has a normal Markdown body containing the same question and ordered choices, followed by an invitation to answer in chat. A capable renderer can replace this fallback with a single-selection control. A plain Markdown viewer may display the entire opening tag, including its answer key and feedback, before the question. The fallback remains readable without executing anything, but is an open-book reference, not an unspoiled quiz. Only an adopting renderer or chat agent can present the question without that source metadata.
+The generated schema defines fields, limits and the default `practice` mode. Zod also enforces constraints portable JSON Schema cannot express: choice IDs must be unique, choice labels distinct after trimming and lowercasing, and `answer` must name an existing choice. `exercisePopQuizzesSchema` additionally rejects repeated quiz IDs within an exercise. JSON-only consumers must implement these supplemental checks.
 
-Attributes are literal data only:
+The Markdown body repeats the question and ordered choice labels, then invites a chat answer. It must not add a separate answer list. A plain Markdown viewer can expose the opening tag's answer key and feedback; this is an open-book learning reference, not secure assessment data. A renderer or chat agent can withhold that metadata until an attempt.
 
-- `id`: required stable quiz ID, with the same lowercase letters, numbers, single-hyphen and 64-character limit as a course name. Unique within an exercise, not globally.
-- `question`: required nonblank plain text, at most 1,024 characters.
-- `choices`: required array of 2–8 objects. Each contains only a stable `id`, a nonblank `label` (at most 512 characters), and nonblank `feedback` (at most 2,048 characters). Choice IDs follow the same naming rule and must be unique within the quiz. Labels must be distinct after trimming surrounding whitespace and ignoring case.
-- `answer`: required string containing exactly one existing choice ID. It is not an array or an index. There are no per-choice correctness booleans.
-- `mode`: `practice` (the default) or `required`. No other values or attributes.
+Keep IDs stable when renumbering exercises or reordering choices. Persist answers by canonical course URL, exercise slug, quiz ID and selected choice ID, never display number. Changed meaning requires new IDs or invalidating saved answers. Persistence and revision policy belong to the school.
 
-The normal Markdown fallback must repeat the same question and choice labels in the same order. It must not state which choice is correct before the learner answers. Keep authored feedback in the data, not in an immediately displayed answer list. This is not secure assessment data: anyone can read the answer key in the source. Use it for learning, not high-stakes grading.
+### Interaction
 
-Renumbering exercises or reordering choices must not change their IDs. Scope persisted answers by canonical course URL, exercise slug and quiz ID, and record the selected choice ID, never its display number. If a question or choice changes meaning, use new IDs or invalidate affected saved answers. Persistence and content revision policy belong to the school; this spec does not introduce a progress API or repository writes.
+- `practice`: the learner may answer, retry or skip; it never gates an exercise.
+- `required`: a correct submitted answer is a knowledge checkpoint before considering continuation, not evidence of a practical check or physical action. Existing `agent-instructions` and school completion policy still apply.
+- Selection is not submission. On explicit submission, return correctness and the chosen feedback; allow changes and retries. Never complete an exercise, run a tool or advance automatically. A request to continue is separate.
+- Use labeled, keyboard-operable radios, a separate submit action and accessible text feedback, not color alone. Layout and navigation belong to the school.
+- Without a widget, ask the question in chat and wait. Map an unambiguous answer to its stable ID; clarify ambiguity, never answer for the learner or reveal correctness before an attempt. Required checkpoints work in chat too. Invalid or missing data must be explained, not silently passed; the author or school must resolve it or explicitly apply its own completion policy.
 
-### Practice and required checkpoints
+### Parsing and safety
 
-For `practice`, the learner may answer, retry or skip. It must not gate the exercise. For `required`, a correct submitted answer is an authored knowledge checkpoint before the agent considers moving on. It is never sufficient evidence that an exercise's practical check or physical action happened. The existing checks in `agent-instructions` still apply; the school retains its completion policy.
+`popQuizSchema` validates decoded attributes; `exercisePopQuizzesSchema` validates their collection. `evaluatePopQuiz` validates data and the submitted ID and returns feedback without progress, persistence or rendering effects. They are not a Markdown parser or UI.
 
-Selecting an option is not submission. After the learner explicitly submits one choice, return that choice's feedback and whether it is correct. Let the learner change the selection and submit again. Do not automatically complete the exercise, run a tool, or advance to the next lesson on selection or on a correct answer. The learner's subsequent request to continue is separate from evaluating the quiz.
+An adopting adapter must:
 
-A renderer should use keyboard-operable radio controls with associated labels, a separate submit action, and textual feedback that can be announced to assistive technology. Do not rely on color to communicate correctness. Visual layout, retry presentation and school-specific navigation are not prescribed here.
+- Accept literal data only. Reject parser errors, duplicate attributes, variables, functions, expressions and includes; never execute arbitrary component names.
+- Keep code/fence subtrees inert, even when Markdoc exposes tags inside them. Diagnose apparent malformed declarations left as raw text.
+- Reject nested quizzes, self-closing quizzes without fallback, quizzes in interviews, and nested custom tags or executable directives in fallback. Validate all quiz IDs in each exercise together.
+- Preserve readable fallback for unknown components without execution. Ordinary Markdown headings, paragraphs and lists are allowed; quiz fallback must match the data's question and ordered labels.
+- Escape attribute text rather than interpreting HTML, links, scripts or callbacks. Sanitize the whole fallback: reject raw HTML, executable directives and unsafe URL schemes such as `javascript:`.
 
-### Chat-only fallback
-
-An agent without a quiz UI presents the question and choices as ordinary text, asks for one answer, and waits. Map the learner's current display number or unambiguous text to its stable ID; ask for clarification if ambiguous. Evaluate the selected ID and give its feedback, then allow another attempt. Do not choose on the learner's behalf or disclose the correct answer in the chat presentation before an attempt; the public source and plain Markdown view still expose it. In required mode, handle the same checkpoint in chat rather than deadlocking on an unavailable widget. If the data is invalid or unavailable, explain the problem instead of silently marking it passed; the school or author must resolve it or explicitly use its own completion policy.
-
-### Parsing and validation boundary
-
-The exported `popQuizSchema` validates decoded attributes; `exercisePopQuizzesSchema` also rejects repeated quiz IDs in one exercise. `evaluatePopQuiz` is a pure feedback helper: it validates data and the submitted ID and has no progress, rendering or persistence side effects. These exports do not parse Markdown or implement a quiz UI.
-
-An adopting school must parse the Markdoc syntax, reject parser errors and duplicate attributes, and pass only literal attributes to the schema. Do not resolve variables, functions, expressions, includes or arbitrary component names. Reject nested quizzes, self-closing quizzes without a fallback, and nested custom tags or executable directives in the fallback; ordinary Markdown headings, paragraphs and lists are allowed. Tags inside fenced code examples must remain inert: Markdoc may expose them as AST children, so adapters must explicitly exclude code and fence subtrees. Some malformed delimiters are left as raw text rather than parser errors; adapters must diagnose apparent unparsed pop-quiz declarations too. Validate all quiz IDs in the current exercise together, and reject quizzes in the interview. Unknown components should retain readable fallback content rather than execute code.
-
-Escape question, choice and feedback strings as text. Do not interpret them as trusted HTML, Markdown links, scripts or callbacks. Also sanitize the entire Markdown fallback, not just attributes: reject raw HTML, executable directives and unsafe URL schemes such as `javascript:`. Do not render authored HTML directly. The component does not authorize network requests, telemetry, tool calls or transmission of learner answers. Existing learner consent and school policy still apply.
-
-The Markdoc parser is a development-only dependency here to test the example syntax. No production Markdoc dependency is added to the main exports. Renderer integration, full-document AST validation and school progress integration remain work for adopting schools, not implemented by this proposal.
+Components do not authorize network requests, telemetry, tools or transmission of answers; learner consent and school policy still apply. Markdoc is development-only here. A hardened document adapter, UI and progress integration remain unimplemented.
 
 ## The interview
 

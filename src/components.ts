@@ -2,20 +2,20 @@ import { z } from "zod";
 import { courseNameSchema } from "./schemas";
 
 // Experimental optional body data. Frontmatter and ordinary Markdown are unchanged.
-const text = (max: number) => z.string().min(1).max(max).refine((value) => value.trim().length > 0, "Must not be blank");
+const text = (max: number) => z.string().min(1).max(max).regex(/\S/, "Must not be blank");
 
 export const popQuizChoiceSchema = z.strictObject({
-  id: courseNameSchema,
+  id: courseNameSchema.describe("Stable choice ID, unique within its quiz."),
   label: text(512),
   feedback: text(2048),
 });
 
 export const popQuizSchema = z.strictObject({
-  id: courseNameSchema,
+  id: courseNameSchema.describe("Stable quiz ID, unique within its exercise."),
   question: text(1024),
   choices: z.array(popQuizChoiceSchema).min(2).max(8),
-  answer: courseNameSchema,
-  mode: z.enum(["practice", "required"]).default("practice"),
+  answer: courseNameSchema.describe("One existing choice ID, not an index. Enforced by supplemental validation."),
+  mode: z.enum(["practice", "required"]).default("practice").describe("Practice is optional; required is a knowledge checkpoint, never proof of physical completion."),
 }).superRefine((quiz, ctx) => {
   const ids = new Set<string>();
   const labels = new Set<string>();

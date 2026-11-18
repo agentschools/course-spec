@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable course name. Lowercase letters, numbers, and single hyphens.",
+      "example": "durable-objects"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "description": "What the course teaches and who it's for."
+    },
+    "license": {
+      "description": "Course license, as in an Agent Skill.",
+      "type": "string",
+      "minLength": 1
+    },
+    "compatibility": {
+      "description": "Prerequisites: accounts, tools, or courses the student needs first.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "metadata": {
+      "description": "String metadata. author credits the author; url is the canonical course URL used to key progress, otherwise the learner-provided URL.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "description"
+  ],
+  "additionalProperties": false,
+  "$comment": "Generated from Zod. Do not edit. See SPEC.md for supplemental cross-field and document constraints. Defaults are annotations, not mutations."
+}
