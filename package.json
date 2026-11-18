@@ -13,7 +13,8 @@
     "src/*.ts",
     "!src/*.test.ts",
     "SPEC.md",
-    "skills"
+    "skills",
+    "examples"
   ],
   "scripts": {
     "test": "vitest run",
@@ -23,6 +24,7 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@markdoc/markdoc": "0.5.13",
     "@types/node": "22.20.5",
     "typescript": "7.0.2",
     "vitest": "4.1.11",

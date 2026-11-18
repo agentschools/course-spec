@@ -47,6 +47,10 @@ npx skills add agentschools/course-spec
 - [skills/learning-companion](skills/learning-companion/SKILL.md): an Agent Skill for learning from an existing course or tutorial while your agent implements it
 - [AGENTS.md](AGENTS.md): how this repo is set up, for contributors and their agents
 
+## Exploration on this branch
+
+This draft explores optional declarative Markdoc components, starting with single-answer pop quizzes. Ordinary `.md` remains valid. See [the proposed section](SPEC.md#optional-declarative-components-proposal) and [a portable example](examples/pop-quiz.md). It is not an adopted standard or a complete renderer.
+
 ## License
 
 [MIT](LICENSE)

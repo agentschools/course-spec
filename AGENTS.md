@@ -10,9 +10,11 @@ This repo defines the COURSE.md format: a school-agnostic format for courses tha
 - `src/rules.ts`: ordering, slug, title, and interview-first rules. `src/schemas.ts`: Zod schemas for `COURSE.md` and exercise frontmatter. `src/index.ts` re-exports both.
 - `src/spec.test.ts`: checks `SPEC.md`'s stated rules and the frontmatter in its examples against the code, and the skill's frontmatter against the Agent Skills rules. When the format changes, update `SPEC.md` and the code in the same commit.
 
+- `src/components.ts`: experimental optional pop-quiz data schemas and pure answer-feedback evaluation. `src/components.test.ts` checks data invariants. `src/components-markdoc.test.ts` checks the literal syntax and readable fallback in `examples/pop-quiz.md`; Markdoc is development-only, not imported by main exports.
+
 ## School-agnostic
 
-Nothing here may depend on a particular school. School-specific behavior (default interviews, quizzes, tracks, progress APIs, enrollment) belongs in each school's own docs, which can link here. Examples may link to a school's courses as real-world examples.
+Nothing here may depend on a particular school. School-specific behavior (default interviews, generated quizzes, tracks, progress APIs, enrollment) belongs in each school's own docs, which can link here. This proposal adds only optional portable authored quiz data; it does not mandate a school quiz engine or change completion policy. Examples may link to a school's courses as real-world examples.
 
 ## Consumers
 
