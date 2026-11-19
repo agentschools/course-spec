@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import Ajv2020 from "ajv/dist/2020";
 import { describe, expect, it } from "vitest";
 import { generatedJsonSchemas } from "./json-schemas";
-import { popQuizSchema, exercisePopQuizzesSchema } from "./components";
+import { popQuizSchema } from "./components";
 
 const schemas = generatedJsonSchemas();
 const ajv = new Ajv2020({ strict: false });
@@ -10,6 +10,9 @@ const validate = ajv.compile(schemas["pop-quiz.schema.json"]);
 const quiz = { id: "test", question: "Which?", choices: [{ id: "one", label: "One", feedback: "Yes" }, { id: "two", label: "Two", feedback: "Try again" }], answer: "one" };
 describe("generated input schemas", () => {
   it("matches committed schemas and compiles every portable schema", () => {
+    expect(Object.keys(schemas).sort()).toEqual([
+      "course-frontmatter.schema.json", "exercise-frontmatter.schema.json", "pop-quiz.schema.json",
+    ]);
     for (const [name, schema] of Object.entries(schemas)) {
       expect(JSON.parse(readFileSync(new URL(`../schemas/${name}`, import.meta.url), "utf8"))).toEqual(schema);
       expect(() => ajv.compile(schema)).not.toThrow();
@@ -39,8 +42,6 @@ describe("generated input schemas", () => {
       expect(validate(data)).toBe(true);
       expect(popQuizSchema.safeParse(data).success).toBe(false);
     }
-    expect(ajv.compile(schemas["exercise-pop-quizzes.schema.json"])([quiz, quiz])).toBe(true);
-    expect(exercisePopQuizzesSchema.safeParse([quiz, quiz]).success).toBe(false);
   });
   it("keeps both frontmatter schemas strict", () => {
     const course = ajv.compile(schemas["course-frontmatter.schema.json"]);

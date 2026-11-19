@@ -1,13 +1,12 @@
 import { z } from "zod";
 import { courseFrontmatterSchema, exerciseFrontmatterSchema } from "./schemas";
-import { popQuizSchema, exercisePopQuizzesSchema } from "./components";
+import { popQuizSchema } from "./components";
 
 // Input mode preserves optional fields with defaults. JSON Schema does not apply defaults.
 const definitions = {
   "course-frontmatter": courseFrontmatterSchema,
   "exercise-frontmatter": exerciseFrontmatterSchema,
   "pop-quiz": popQuizSchema,
-  "exercise-pop-quizzes": exercisePopQuizzesSchema,
 };
 export function generatedJsonSchemas() {
   return Object.fromEntries(Object.entries(definitions).map(([name, schema]) => [

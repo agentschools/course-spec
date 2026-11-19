@@ -105,7 +105,7 @@ An exercise may include a literal [Markdoc](https://markdoc.dev/docs/syntax) `po
 
 ### Data and identity
 
-[The quiz schema](schemas/pop-quiz.schema.json) validates one quiz, including its fields, limits, and default `practice` mode. [The exercise quiz schema](schemas/exercise-pop-quizzes.schema.json) validates the array of quizzes extracted from a single exercise using the same quiz shape. Zod also enforces constraints portable JSON Schema cannot express: choice IDs must be unique, choice labels distinct after trimming and lowercasing, and `answer` must name an existing choice. `exercisePopQuizzesSchema` additionally rejects repeated quiz IDs within an exercise. JSON-only consumers must implement these supplemental checks.
+[The quiz schema](schemas/pop-quiz.schema.json) validates one quiz, including its fields, limits, and default `practice` mode. Zod also enforces constraints portable JSON Schema cannot express: choice IDs must be unique, choice labels distinct after trimming and lowercasing, and `answer` must name an existing choice. `exercisePopQuizzesSchema` additionally rejects repeated quiz IDs within an exercise. JSON-only consumers must implement these supplemental checks.
 
 The Markdown body repeats the question and ordered choice labels, then invites a chat answer. It must not add a separate answer list. A plain Markdown viewer can expose the opening tag's answer key and feedback; this is an open-book learning reference, not secure assessment data. A renderer or chat agent can withhold that metadata until an attempt.
 
