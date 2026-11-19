@@ -2,7 +2,7 @@
 
 A course is a short series of exercises that a student's AI coding agent teaches them, one conversation at a time. It's plain Markdown, hosted wherever you like. Students start it by giving their agent its URL, for example "take the course at https://github.com/you/durable-objects-course".
 
-This document is for course authors and for schools: the apps that track students' progress through courses. Schools can add their own rules on top, like a default interview or an API for reporting progress, but a course that follows this format should work in any of them.
+This document is for course authors and for schools: the apps that track students' progress through courses. Schools can add their own rules on top, like a default interview or an API for reporting progress, but a course that follows this format should work in any of them. Schools can validate frontmatter with the [JSON Schemas](https://github.com/agentschools/course-spec/tree/main/schemas) in this repo.
 
 ## Where to host it
 

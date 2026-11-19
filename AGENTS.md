@@ -9,6 +9,7 @@ This repo defines the COURSE.md format: a school-agnostic format for courses tha
 - `skills/learning-companion/SKILL.md`: a learner-facing Agent Skill for following existing courses and tutorials while the agent implements them. It teaches product choices and API connections, uses authored checkpoints, and infers missing checkpoints at major concept boundaries.
 - `src/rules.ts`: ordering, slug, title, and interview-first rules. `src/schemas.ts`: Zod schemas for `COURSE.md` and exercise frontmatter. `src/index.ts` re-exports both.
 - `src/spec.test.ts`: checks `SPEC.md`'s stated rules and the frontmatter in its examples against the code, and the skill's frontmatter against the Agent Skills rules. When the format changes, update `SPEC.md` and the code in the same commit.
+- `schemas/`: JSON Schemas generated from the Zod schemas, for consumers that don't use TypeScript. Don't edit them by hand. `src/json-schemas.test.ts` fails when they drift; run `npx vitest run -u` to regenerate.
 
 ## School-agnostic
 
