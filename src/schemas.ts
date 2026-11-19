@@ -41,5 +41,26 @@ export const exerciseFrontmatterSchema = z.strictObject({
   "agent-instructions": z.string().min(1).optional(),
 });
 
+/** Stable ID for a pop quiz or one of its choices. Same rules as `name`. */
+const idSchema = z.string().min(1).max(64).regex(namePattern);
+
+/** Attributes of a `{% pop-quiz %}` Markdoc tag in an exercise body. */
+export const popQuizSchema = z
+  .strictObject({
+    id: idSchema,
+    question: z.string().min(1),
+    choices: z
+      .array(z.strictObject({ id: idSchema, label: z.string().min(1), feedback: z.string().min(1) }))
+      .min(2),
+    answer: idSchema,
+    mode: z.enum(["practice", "required"]).default("practice"),
+  })
+  .superRefine((quiz, ctx) => {
+    const ids = quiz.choices.map((choice) => choice.id);
+    if (new Set(ids).size !== ids.length) ctx.addIssue({ code: "custom", path: ["choices"], message: "Choice IDs must be unique" });
+    if (!ids.includes(quiz.answer)) ctx.addIssue({ code: "custom", path: ["answer"], message: "Answer must be a choice ID" });
+  });
+
 export type CourseFrontmatter = z.infer<typeof courseFrontmatterSchema>;
 export type ExerciseFrontmatter = z.infer<typeof exerciseFrontmatterSchema>;
+export type PopQuiz = z.infer<typeof popQuizSchema>;

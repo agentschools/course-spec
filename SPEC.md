@@ -2,7 +2,7 @@
 
 A course is a short series of exercises that a student's AI coding agent teaches them, one conversation at a time. It's plain Markdown, hosted wherever you like. Students start it by giving their agent its URL, for example "take the course at https://github.com/you/durable-objects-course".
 
-This document is for course authors and for schools: the apps that track students' progress through courses. Schools can add their own rules on top, like a default interview or an API for reporting progress, but a course that follows this format should work in any of them. Schools can validate frontmatter with the [JSON Schemas](https://github.com/agentschools/course-spec/tree/main/schemas) in this repo.
+This document is for course authors and for schools: the apps that track students' progress through courses. Schools can add their own rules on top, like a default interview or an API for reporting progress, but a course that follows this format should work in any of them. Schools can validate frontmatter and pop quizzes with the [JSON Schemas](https://github.com/agentschools/course-spec/tree/main/schemas) in this repo.
 
 ## Where to host it
 
@@ -140,6 +140,38 @@ The student's agent does the work: it runs the commands, writes the code, and de
 Tell the agent to wait for the student's reply at each of these moments, and put try-it steps before the check that completes the exercise. Agents mark an exercise complete and move on, so anything written after that gets skipped.
 
 Be honest where a demo cuts corners (for example, a button that stands in for a signed-in user), and make sure the course's code doesn't contradict what the course teaches.
+
+## Pop quizzes
+
+To check understanding at a set point, add a pop quiz to an exercise's body. It's a [Markdoc](https://markdoc.dev/docs/syntax) tag, so the exercise stays plain Markdown:
+
+```markdown title="exercises/02-mix-the-batter.md"
+{% pop-quiz
+  id="stop-mixing"
+  question="When should you stop mixing?"
+  choices=[
+    {"id": "smooth", "label": "When the batter is perfectly smooth", "feedback": "A few small lumps are fine. Extra mixing makes the cake tough."},
+    {"id": "no-dry-flour", "label": "When no dry flour remains", "feedback": "Correct! Check the bottom of the bowl too."}
+  ]
+  answer="no-dry-flour"
+%}
+
+Pop quiz: When should you stop mixing?
+
+1. When the batter is perfectly smooth
+2. When no dry flour remains
+
+Tell your agent your answer.
+
+{% /pop-quiz %}
+```
+
+- `id`, and each choice's `id`: follow the same rules as `name`, and stay the same when you reword or reorder things, since schools may save answers by them. Quiz IDs are unique within an exercise.
+- `answer`: the `id` of the correct choice. Each choice's `feedback` is shown after the student picks it.
+- `mode`: `practice` (the default) lets the student skip the quiz. `required` means the student answers correctly before moving on, retrying after feedback. Neither one completes the exercise.
+- Inside the tag, repeat the question and choices in plain Markdown, so the quiz still reads well where it isn't rendered as a widget. The agent asks it in chat and waits for the student's answer.
+
+Schools decide how to show quizzes and whether to save answers.
 
 ## Cleanup
 
