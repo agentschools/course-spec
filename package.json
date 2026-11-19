@@ -25,6 +25,7 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@markdoc/markdoc": "0.5.14",
     "@types/node": "22.20.5",
     "typescript": "7.0.2",
     "vitest": "4.1.11",

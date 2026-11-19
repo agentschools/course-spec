@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
+import Markdoc from "@markdoc/markdoc";
 import { describe, expect, it } from "vitest";
 import { parse as parseYaml } from "yaml";
 import { compareExerciseFilenames, exerciseSlugFromFilename, INTERVIEW_SLUG } from "./rules";
-import { courseFrontmatterSchema, courseNameSchema, exerciseFrontmatterSchema, exerciseSlugSchema } from "./schemas";
+import { courseFrontmatterSchema, courseNameSchema, exerciseFrontmatterSchema, exerciseSlugSchema, popQuizSchema } from "./schemas";
 
 // SPEC.md describes the format in prose. These check its claims and examples
 // against the code, so the two can't drift apart.
@@ -42,6 +43,17 @@ describe("SPEC.md", () => {
     expect(spec).toContain("`2-alarms.md` comes before `10-cleanup.md`");
     expect(spec).toContain(`slug \`${INTERVIEW_SLUG}\``);
     expect(exerciseSlugSchema.safeParse("your-first-object").success).toBe(true);
+  });
+
+  it("has a pop quiz example that parses and repeats its question and choices in Markdown", () => {
+    const example = spec.match(/```markdown title="[^"]+"\n(\{% pop-quiz[\s\S]*?)```/)![1];
+    const nodes = [...Markdoc.parse(example).walk()];
+    expect(nodes.flatMap((node) => node.errors)).toEqual([]);
+    const tag = nodes.find((node) => node.type === "tag" && node.tag === "pop-quiz")!;
+    const quiz = popQuizSchema.parse(tag.attributes);
+    const text = [...tag.walk()].filter((node) => node.type === "text").map((node) => node.attributes.content);
+    expect(text.join("\n")).toContain(quiz.question);
+    for (const choice of quiz.choices) expect(text).toContain(choice.label);
   });
 });
 
