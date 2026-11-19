@@ -62,12 +62,6 @@ description: "Build a counter that keeps its state between Worker requests."
 # Create a counter
 
 Add a counter Durable Object to your Worker and deploy it.
-
-## Check persistence
-
-Fetch the deployed URL twice as separate requests. The second count must
-be one greater than the first. Complete the exercise only after your
-agent verifies this result.
 ```
 
 The body is for the student and their agent alike. Schools may show it to students on the web as a preview, so keep anything only the agent needs in `agent-instructions`.
@@ -108,11 +102,11 @@ If the student builds on the same thing across exercises, like an app or a test 
 
 Write the body first, starting without `agent-instructions`. Add the field only for exercise-specific direction the agent cannot get from the body or the school's shared instructions.
 
-| Information | Where it belongs |
-| --- | --- |
-| Explanations, commands, code, constraints, and troubleshooting | The body |
-| Completion checks and expected results | The body |
-| A specific teaching pause, adaptation, or agent-only verification detail not already covered | Short `agent-instructions` cues |
+| Information                                                                                                                      | Where it belongs                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Explanations, commands, code, constraints, and troubleshooting                                                                   | The body                                              |
+| Completion checks and expected results                                                                                           | The body                                              |
+| A specific teaching pause, adaptation, or agent-only verification detail not already covered                                     | Short `agent-instructions` cues                       |
 | Shared teaching behavior, reading and saving interviews, checking progress, reporting completion, and choosing the next exercise | The school's shared instructions, such as `/llms.txt` |
 
 Useful cues might tell the agent to wait for a prediction before a particular step, shorten a specific explanation after an earlier course, or adapt a discussion to an interview answer. These are possibilities, not required categories. Reference the section instead of restating its steps. Don't repeat goals, model IDs, commands, or checks already in the body, or general reminders to explain steps and use interview answers.

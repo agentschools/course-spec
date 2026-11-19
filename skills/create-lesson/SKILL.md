@@ -14,15 +14,15 @@ Help the author create or revise one lesson: a single teaching exercise in the C
 
 Read the format first: https://raw.githubusercontent.com/agentschools/course-spec/main/SPEC.md.
 
-When working through `create-course`, use the approved audience, prerequisites, lesson objective, prior coverage, intended outcome, output format, and any shared instructions from the school. Reuse those decisions rather than asking the author to repeat them.
+When working through `create-course`, use the approved audience, prerequisites, lesson objective, prior coverage, intended outcome, and output format. Reuse those decisions rather than asking the author to repeat them.
 
-When working on a lesson independently, read the existing COURSE.md, relevant exercises or sections, and any shared instructions from the named school for context. Ask the author only for information you still need.
+When working on a lesson independently, read the existing COURSE.md, and relevant exercises or sections for context. Ask the author only for information you still need.
 
 ## Workflow
 
 1. Confirm the outcome. Identify what the student should understand or accomplish by the end, and what prerequisites or earlier lessons have already taught. Keep the lesson focused on one cohesive topic. If it needs to cover separate topics, propose a split to the author before changing the approved outline.
-2. Draft the body first as a complete tutorial. Open with the context, what the student will do, and why it matters. Explain new concepts before using them, then guide the activity. Put commands, code, constraints, and useful troubleshooting in the body. Apply the writing guidelines below.
-3. Add student participation. Choose suitable moments for the student to make a choice, predict a result, explain their reasoning, or try a variation. Put activities in the body, with any try-it steps before the completion check. Add a short agent cue only if a specific pause or adaptation isn't already clear from the body or shared school instructions. Tell the teaching agent to wait for the student's reply at those moments.
+2. Draft the body first as a complete tutorial. Open with the context, what the student will do, and why it matters. Explain new concepts before using them, then guide the activity. Apply the writing guidelines below.
+3. Add student participation. Choose suitable moments for the student to make a choice, predict a result, explain their reasoning, or try a variation. Put activities in the body, with any try-it steps before the completion check.
 4. Define completion in the body. Specify a concrete check and the expected result, and state plainly that the agent must verify it before marking the exercise complete. Don't repeat the check in `agent-instructions` or add school API calls.
 5. Review the draft. Check that the explanation and activity support the outcome, assume only established knowledge, and fit the course sequence. For any `agent-instructions`, apply the spec's "Add agent instructions only when needed" test: what necessary behavior does each cue add beyond the body and shared instructions? Remove duplication and omit the field if nothing remains. Review the draft with the author before moving to another lesson.
 
