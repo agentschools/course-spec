@@ -57,15 +57,11 @@ durable-objects-course/
 ```markdown title="exercises/01-first-object.md"
 ---
 description: "Build a counter that keeps its state between Worker requests."
-agent-instructions: |
-  Help the student add a counter Durable Object to their Worker and
-  deploy it. Before marking this exercise complete, fetch the deployed
-  URL twice yourself and check the count went up.
 ---
 
 # Create a counter
 
-What the student will build and why, written for the student.
+Add a counter Durable Object to your Worker and deploy it.
 ```
 
 The body is for the student and their agent alike. Schools may show it to students on the web as a preview, so keep anything only the agent needs in `agent-instructions`.
@@ -98,9 +94,24 @@ An introduction.
 
 ### Write the body as a tutorial
 
-Make the body a complete tutorial with a default example: every step as its own section (`##` in an exercise file, `###` in a single-file course), with its commands and code. A student can follow it on the web, and every student's agent builds the same thing from it. Keep `agent-instructions` to short cues on top: the choices to ask the student for, where to ask for a prediction, the check, and what to shorten for students who already know a part. The agent swaps in the student's names and pitches each step to them.
+Make the body a complete tutorial with a default example: every step as its own section (`##` in an exercise file, `###` in a single-file course), with its commands, code, checks, and expected results. Include explanations, constraints, and useful troubleshooting here too. A student can follow it on the web, and every student's agent builds the same thing from it. The agent swaps in the student's names and pitches each step to them.
 
 If the student builds on the same thing across exercises, like an app or a test page, keep its shape stable, so each exercise's change stays small.
+
+### Add agent instructions only when needed
+
+Write the body first, starting without `agent-instructions`. Add the field only for exercise-specific direction the agent cannot get from the body or the school's shared instructions.
+
+| Information                                                                                                                      | Where it belongs                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Explanations, commands, code, constraints, and troubleshooting                                                                   | The body                                              |
+| Completion checks and expected results                                                                                           | The body                                              |
+| A specific teaching pause, adaptation, or agent-only verification detail not already covered                                     | Short `agent-instructions` cues                       |
+| Shared teaching behavior, reading and saving interviews, checking progress, reporting completion, and choosing the next exercise | The school's shared instructions, such as `/llms.txt` |
+
+Useful cues might tell the agent to wait for a prediction before a particular step, shorten a specific explanation after an earlier course, or adapt a discussion to an interview answer. These are possibilities, not required categories. Reference the section instead of restating its steps. Don't repeat goals, model IDs, commands, or checks already in the body, or general reminders to explain steps and use interview answers.
+
+For every instruction, ask: **What necessary behavior does this add beyond the body and shared instructions?** Remove it if there is no specific answer. Omit the field when nothing remains. School API endpoints, payloads, and progress identifiers belong in that school's instructions, not individual exercises.
 
 ## The interview
 
@@ -119,12 +130,12 @@ The interview is only worth asking if its answers change the course. Plan for th
 
 - Use every answer somewhere in the course, or don't ask the question.
 - If students will want different amounts of detail, ask how deep they want to go: for example the big picture with no code, how it works with the key settings, or hands-on with all the code. Ask about depth, not job titles: few students describe themselves with the terms your company uses. Example roles can be hints.
-- Repeat a one-line cue for each level in every exercise. A later exercise may be taught in a fresh session whose agent never read the interview's instructions.
+- Add an exercise-specific adaptation cue only when an interview answer changes how that lesson should be taught. Say what changes; don't repeat general reminders to adjust depth or read saved interviews.
 - Let the student change their answer anytime, for example by saying "less code" or "go deeper".
 
 ## Make every exercise checkable
 
-An exercise is complete when the student's agent says so, so give the agent something concrete to check first: fetch a deployed URL and compare the response, run a command and read its output, or look at a file the student changed. Say what the check is in `agent-instructions`, and say plainly that completion waits on it. Some schools also have the agent quiz the student after each exercise, written from the exercise itself.
+An exercise is complete when the student's agent says so, so give the agent something concrete to check first: fetch a deployed URL and compare the response, run a command and read its output, or look at a file the student changed. Put the check and its expected result in the body, and say plainly that completion waits on the agent verifying it. Don't repeat it in `agent-instructions`. Some schools also have the agent quiz the student after each exercise, written from the exercise itself.
 
 ## Involve the student
 

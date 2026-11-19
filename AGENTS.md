@@ -33,6 +33,8 @@ Schools install this as a git dependency, not from npm (nothing is published):
 
 Sentence case for headings. No em dashes. Plain, short prose, matching `SPEC.md`.
 
+Lesson bodies hold the complete tutorial, including completion checks. `agent-instructions` is optional and adds only necessary exercise-specific direction beyond the body and shared school instructions. Keep `create-course` and `create-lesson` aligned with this placement rule in `SPEC.md`.
+
 ## Keep this file current
 
 Update this file whenever you add a file or directory, change the format, or change how schools consume this repo.
