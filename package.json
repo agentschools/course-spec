@@ -7,12 +7,14 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./SPEC.md": "./SPEC.md"
+    "./SPEC.md": "./SPEC.md",
+    "./schemas/*": "./schemas/*"
   },
   "files": [
     "src/*.ts",
     "!src/*.test.ts",
     "SPEC.md",
+    "schemas",
     "skills"
   ],
   "scripts": {
