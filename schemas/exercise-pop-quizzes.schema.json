@@ -64,7 +64,7 @@
       },
       "mode": {
         "default": "practice",
-        "description": "Practice is optional; required is a knowledge checkpoint, never proof of physical completion.",
+        "description": "Learners can skip practice quizzes. They must answer required quizzes correctly before continuing and can retry after feedback. A correct answer does not verify hands-on work.",
         "type": "string",
         "enum": [
           "practice",

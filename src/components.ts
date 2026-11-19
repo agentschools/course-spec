@@ -15,7 +15,7 @@ export const popQuizSchema = z.strictObject({
   question: text(1024),
   choices: z.array(popQuizChoiceSchema).min(2).max(8),
   answer: courseNameSchema.describe("One existing choice ID, not an index. Enforced by supplemental validation."),
-  mode: z.enum(["practice", "required"]).default("practice").describe("Practice is optional; required is a knowledge checkpoint, never proof of physical completion."),
+  mode: z.enum(["practice", "required"]).default("practice").describe("Learners can skip practice quizzes. They must answer required quizzes correctly before continuing and can retry after feedback. A correct answer does not verify hands-on work."),
 }).superRefine((quiz, ctx) => {
   const ids = new Set<string>();
   const labels = new Set<string>();

@@ -49,7 +49,7 @@ npx skills add agentschools/course-spec
 
 ## Exploration on this branch
 
-This draft explores optional declarative Markdoc components, starting with single-answer pop quizzes. Ordinary `.md` remains valid. See [the proposed section](SPEC.md#optional-declarative-components-proposal) and [a portable example](examples/pop-quiz.md). It is not an adopted standard or a complete renderer.
+Exercises can include optional Markdoc components, starting with single-answer pop quizzes. Ordinary `.md` remains valid. See [how pop quizzes work](SPEC.md#optional-declarative-components) and [an example](examples/pop-quiz.md). The spec defines quiz data and behavior; schools provide the runtime.
 
 ## Schema-first validation
 

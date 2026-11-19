@@ -99,22 +99,22 @@ Make the body a complete tutorial with a default example: every step as its own 
 
 If the student builds on the same thing across exercises, like an app or a test page, keep its shape stable, so each exercise's change stays small.
 
-## Optional declarative components (proposal)
+## Optional declarative components
 
 An exercise may include a literal [Markdoc](https://markdoc.dev/docs/syntax) `pop-quiz` block. Ordinary `.md`, existing frontmatter and completion policy stay unchanged; no `.mdx`, JavaScript imports or renderer is required. Interviews are not quizzed. See the complete [example](examples/pop-quiz.md) and [pop-quiz data schema](schemas/pop-quiz.schema.json).
 
 ### Data and identity
 
-The generated schema defines fields, limits and the default `practice` mode. Zod also enforces constraints portable JSON Schema cannot express: choice IDs must be unique, choice labels distinct after trimming and lowercasing, and `answer` must name an existing choice. `exercisePopQuizzesSchema` additionally rejects repeated quiz IDs within an exercise. JSON-only consumers must implement these supplemental checks.
+[The quiz schema](schemas/pop-quiz.schema.json) validates one quiz, including its fields, limits, and default `practice` mode. [The exercise quiz schema](schemas/exercise-pop-quizzes.schema.json) validates the array of quizzes extracted from a single exercise using the same quiz shape. Zod also enforces constraints portable JSON Schema cannot express: choice IDs must be unique, choice labels distinct after trimming and lowercasing, and `answer` must name an existing choice. `exercisePopQuizzesSchema` additionally rejects repeated quiz IDs within an exercise. JSON-only consumers must implement these supplemental checks.
 
 The Markdown body repeats the question and ordered choice labels, then invites a chat answer. It must not add a separate answer list. A plain Markdown viewer can expose the opening tag's answer key and feedback; this is an open-book learning reference, not secure assessment data. A renderer or chat agent can withhold that metadata until an attempt.
 
-Keep IDs stable when renumbering exercises or reordering choices. Persist answers by canonical course URL, exercise slug, quiz ID and selected choice ID, never display number. Changed meaning requires new IDs or invalidating saved answers. Persistence and revision policy belong to the school.
+Keep IDs stable when renumbering exercises or reordering choices. Schools decide whether to save results. If a school saves answers, use the canonical course URL, exercise slug, quiz ID, and selected choice ID, never the display number. Changed meaning requires new IDs or invalidating saved answers.
 
 ### Interaction
 
 - `practice`: the learner may answer, retry or skip; it never gates an exercise.
-- `required`: a correct submitted answer is a knowledge checkpoint before considering continuation, not evidence of a practical check or physical action. Existing `agent-instructions` and school completion policy still apply.
+- `required`: the learner must answer correctly before continuing. Give feedback and let them retry an incorrect answer. A correct answer does not verify hands-on work or complete the exercise. Existing `agent-instructions` and school completion policy still apply.
 - Selection is not submission. On explicit submission, return correctness and the chosen feedback; allow changes and retries. Never complete an exercise, run a tool or advance automatically. A request to continue is separate.
 - Use labeled, keyboard-operable radios, a separate submit action and accessible text feedback, not color alone. Layout and navigation belong to the school.
 - Without a widget, ask the question in chat and wait. Map an unambiguous answer to its stable ID; clarify ambiguity, never answer for the learner or reveal correctness before an attempt. Required checkpoints work in chat too. Invalid or missing data must be explained, not silently passed; the author or school must resolve it or explicitly apply its own completion policy.
